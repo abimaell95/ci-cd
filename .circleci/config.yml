@@ -1,32 +1,25 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:python:.,file:manage.py:.
 version: 2.1
-orbs:
-  python: circleci/python@2
+
 jobs:
-  test-python:
-    # Install dependencies and run tests
+  test:
     docker:
-      - image: cimg/python:3.8-node
+      - image: circleci/python:3.8
     steps:
       - checkout
-      - python/install-packages
       - run:
-          name: Run tests
-          command: python manage.py test
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
+          name: Set up Python environment
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install django
       - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+          name: Run Django tests
+          command: |
+            . venv/bin/activate
+            python manage.py test
+
 workflows:
-  build-and-test:
+  version: 2
+  test:
     jobs:
-      - test-python
-    # - deploy:
-    #     requires:
-    #       - test-python
+      - test
