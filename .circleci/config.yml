@@ -35,11 +35,32 @@ jobs:
             . venv/bin/activate
             python manage.py test
 
+  deploy:
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - checkout
+      - run:
+          name: Set up Python environment
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install django
+      - run:
+          name: Deploy application
+          command: |
+            . venv/bin/activate
+            # Your deployment commands here, e.g., using AWS CLI, Azure CLI, etc.
+            echo "Deploying application..."
+
 workflows:
   version: 2
-  test_and_lint:
+  test_and_deploy:
     jobs:
       - lint
       - test:
           requires:
             - lint
+      - deploy:
+          requires:
+            - test
