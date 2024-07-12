@@ -296,7 +296,7 @@
 - **Herramientas Comunes**: Ansible, Chef, Puppet.
 - **Beneficios**: Consistencia, automatización de la configuración, facilidad para aplicar cambios a múltiples sistemas.
 
-## Práctica
+## Tarea
 
 **Ejemplo: Configuración de un Pipeline CD para Desplegar una Aplicación Web Dockerizada usando GitLab CI/CD**
 
